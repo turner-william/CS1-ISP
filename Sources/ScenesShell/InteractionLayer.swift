@@ -13,6 +13,6 @@ class InteractionLayer : Layer {
           super.init(name:"Interaction")
 
           // We insert our RenderableEntities in the constructor
-
+          //insert(entity: Player1, at: .front)
       }
   }
