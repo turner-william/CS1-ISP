@@ -8,7 +8,7 @@ import Igis
 
 class Background : RenderableEntity {
     let background: Audio
-
+    let isBackgroundPlaying = false
     init() {
         // Using a meaningful name can be helpful for debugging
         guard let sound = URL(string:"") else{
