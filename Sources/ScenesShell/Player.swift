@@ -18,7 +18,7 @@ class Player: RenderableEntity{
 
     init() {
         //getting the image url ready
-        guard let imageURL = URL(string:"https://github.com/turner-william/CS1-ISP/blob/master/Sources/Assets/bread.jpg?raw=true") else{
+        guard let imageURL = URL(string:"https://github.com/turner-william/CS1-ISP/blob/master/Sources/Assets/chickenLeg.png?raw=true") else{
             fatalError("Failed to create URL for Player 1 image")
         }
         image = Image(sourceURL:imageURL)
@@ -37,7 +37,7 @@ class Player: RenderableEntity{
     override func render(canvas:Canvas) {
         if let canvasSize = canvas.canvasSize{
             //centering image on the canvas
-            canvasImageCenter = Point(x: (canvasSize.width / 2) - (imageWidth / 2), y: (canvasSize.height / 2) - (imageWidth / 2))
+            canvasImageCenter = Point(x: (canvasSize.width / 2) - (imageWidth / 2), y: ((canvasSize.height / 2) - (imageWidth / 2)) + 65)
             if imageTopLeft.x == 0{
                 imageTopLeft = canvasImageCenter
                 initialImageY = imageTopLeft.y
@@ -51,21 +51,21 @@ class Player: RenderableEntity{
     }
     override func calculate(canvasSize: Size){
         canvasImageCenter = Point(x: (canvasSize.width / 2) - (imageWidth / 2), y: (canvasSize.height / 2) - (imageWidth / 2))
-        if initialImageY > imageTopLeft.y && initialImageY - 100 <= imageTopLeft.y && hitJumpPeak == false{
-            if Int(sqrt(Double(imageTopLeft.y - (initialImageY - 100)))) >= 3{
-                imageTopLeft.y -= Int(sqrt(Double(imageTopLeft.y - (initialImageY - 100))))
+        if initialImageY > imageTopLeft.y && initialImageY - 200 <= imageTopLeft.y && hitJumpPeak == false{
+            if Int(sqrt(Double(imageTopLeft.y - (initialImageY - 200))) * 2) >= 3{
+                imageTopLeft.y -= Int(sqrt(Double(imageTopLeft.y - (initialImageY - 200))) * 2)
                 hitJumpPeak = false
             } else{
                 imageTopLeft.y -= 3
             }
-        } else if initialImageY > imageTopLeft.y && initialImageY - 100 > imageTopLeft.y{
+        } else if initialImageY > imageTopLeft.y && initialImageY - 200 > imageTopLeft.y{
             hitJumpPeak = true
-            imageTopLeft.y = initialImageY - 100
+            imageTopLeft.y = initialImageY - 200
         }
         if hitJumpPeak == true{
-            if atPeakLength > 5{
-                if sqrt(Double(imageTopLeft.y - (initialImageY - 100))) >= 2{
-                    imageTopLeft.y += Int(sqrt(Double(imageTopLeft.y - (initialImageY - 100))))
+            if atPeakLength > 20{
+                if sqrt(Double(imageTopLeft.y - (initialImageY - 200))) * 2 >= 2{
+                    imageTopLeft.y += Int(sqrt(Double(imageTopLeft.y - (initialImageY - 200))) * 2)
                 } else {
                     imageTopLeft.y += 2
                 }
