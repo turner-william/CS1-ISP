@@ -2,7 +2,7 @@ import Igis
 import Foundation
 import Scenes
 
-class Player1: RenderableEntity{
+class Player: RenderableEntity{
     //creating useful variables to manipulate the image/player
     let image : Image
     var imageTopLeft = Point(x:0, y:0)
@@ -22,7 +22,7 @@ class Player1: RenderableEntity{
             fatalError("Failed to create URL for Player 1 image")
         }
         image = Image(sourceURL:imageURL)
-        super.init(name:"Player1")
+        super.init(name:"Player")
     }
 
     //setting up image to be ready

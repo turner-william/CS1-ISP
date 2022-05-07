@@ -19,7 +19,7 @@ class Background : RenderableEntity {
         //backgroundSound = Audio(sourceURL:sound, shouldLoop:true)
         
         //creating background url
-        guard let image = URL(string:"https://github.com/turner-william/CS1-ISP/blob/master/Sources/Assets/minion.png?raw=true") else{
+        guard let image = URL(string:"https://github.com/turner-william/CS1-ISP/blob/master/Sources/Assets/Background.png?raw=true") else{
             fatalError("Background Image could not be loaded")
         }
         backgroundImage = Image(sourceURL:image)
