@@ -3,6 +3,7 @@ import Foundation
 import Scenes
 
 class Enemy: RenderableEntity {
+    var gameover: Bool = false
     //useful variables to manipulate enemy
     let image : Image
     var imageTopLeft = Point(x:0, y:0)
@@ -26,18 +27,20 @@ class Enemy: RenderableEntity {
         return Rect(topLeft:imageTopLeft, size: Size(width: imageWidth, height: imageHeight))
     }
     override func render(canvas: Canvas){
-        if let canvasSize = canvas.canvasSize{
-            //centering image on the canvas
-            canvasImageCenter = Point(x: canvasSize.width - imageWidth, y: ((canvasSize.height / 2) - (imageWidth / 2)) + 100)
-            if imageTopLeft.x == 0{
-                imageTopLeft = canvasImageCenter
-                initialImageX = imageTopLeft.x
+        if gameover == false{
+            if let canvasSize = canvas.canvasSize{
+                //centering image on the canvas
+                canvasImageCenter = Point(x: canvasSize.width - imageWidth, y: ((canvasSize.height / 2) - (imageWidth / 2)) + (canvasSize.height / 10))
+                if imageTopLeft.x == 0{
+                    imageTopLeft = canvasImageCenter
+                    initialImageX = imageTopLeft.x
+                }
             }
+            if image.isReady{
+                image.renderMode = .destinationRect(Rect(topLeft:imageTopLeft, size:Size(width: imageWidth, height: imageHeight)))
+                canvas.render(image)
+            } else{ print("enemy image not ready")}
         }
-        if image.isReady{
-            image.renderMode = .destinationRect(Rect(topLeft:imageTopLeft, size:Size(width: imageWidth, height: imageHeight)))
-            canvas.render(image)
-        } else{ print("enemy image not ready")}
     }
     override func calculate(canvasSize: Size){
         if imageTopLeft.x + imageWidth <= 0{

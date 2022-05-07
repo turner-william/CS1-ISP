@@ -32,21 +32,21 @@ class Background : RenderableEntity {
     }
     override func render(canvas: Canvas){
 
-        //if let canvasSize = canvas.canvasSize{
+        if let canvasSize = canvas.canvasSize{
             //let backgroundRect = Rect(topLeft: Point(x:0, y:0), size: Size(width:canvasSize.width, height:canvasSize.height))
             //let backgroundRectangle = Rectangle(rect:backgroundRect, fillMode: .fillAndStroke)
             //let backgroundColor = Color(.green)
             //canvas.render(FillStyle(color: backgroundColor), StrokeStyle(color: backgroundColor), backgroundRectangle)
-        //}
+            if backgroundImage.isReady{
+                backgroundImage.renderMode = .destinationRect(Rect(topLeft: Point(x:0, y:0), size:Size(width:canvasSize.width, height:canvasSize.height)))
+                canvas.render(backgroundImage)
+            } else{print("Background image was not ready")}
+        }
         //if !isBackgroundPlaying && backgroundSound.isReady {
             //canvas.render(backgroundSound)
             //isBackgroundPlaying = true
         //}
 
-        //rendering background image
-        if backgroundImage.isReady{
-            canvas.render(backgroundImage)
-        } else{print("Background image was not ready")}
     }
     
 }

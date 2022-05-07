@@ -3,6 +3,7 @@ import Foundation
 import Scenes
 
 class Player: RenderableEntity{
+    var gameover: Bool = false
     //creating useful variables to manipulate the image/player
     let image : Image
     var imageTopLeft = Point(x:0, y:0)
@@ -18,7 +19,7 @@ class Player: RenderableEntity{
 
     init() {
         //getting the image url ready
-        guard let imageURL = URL(string:"https://github.com/turner-william/CS1-ISP/blob/master/Sources/Assets/chickenLeg.png?raw=true") else{
+        guard let imageURL = URL(string:"https://github.com/turner-william/CS1-ISP/blob/master/Sources/Assets/Nahom%20in%20baby%20cart1.png?raw=true") else{
             fatalError("Failed to create URL for Player 1 image")
         }
         image = Image(sourceURL:imageURL)
@@ -35,19 +36,21 @@ class Player: RenderableEntity{
         return Rect(topLeft:imageTopLeft, size: Size(width: imageWidth, height:imageHeight))
     }
     override func render(canvas:Canvas) {
-        if let canvasSize = canvas.canvasSize{
-            //centering image on the canvas
-            canvasImageCenter = Point(x: (canvasSize.width / 2) - (imageWidth / 2), y: ((canvasSize.height / 2) - (imageWidth / 2)) + 65)
-            if imageTopLeft.x == 0{
-                imageTopLeft = canvasImageCenter
-                initialImageY = imageTopLeft.y
+        if gameover == false{
+            if let canvasSize = canvas.canvasSize{
+                //centering image on the canvas
+                canvasImageCenter = Point(x: (canvasSize.width / 2) - (imageWidth / 2), y: ((canvasSize.height / 2) - (imageWidth / 2)) + (canvasSize.height / 16))
+                if imageTopLeft.x == 0{
+                    imageTopLeft = canvasImageCenter
+                    initialImageY = imageTopLeft.y
+                }
             }
+            //rendinging image if its ready
+            if image.isReady{
+                image.renderMode = .destinationRect(Rect(topLeft:imageTopLeft, size:Size(width: imageWidth, height: imageHeight)))
+                canvas.render(image)
+            } else{ print("image was not ready")}
         }
-        //rendinging image if its ready
-        if image.isReady{
-            image.renderMode = .destinationRect(Rect(topLeft:imageTopLeft, size:Size(width: imageWidth, height: imageHeight)))
-            canvas.render(image)
-        } else{ print("image was not ready")}
     }
     override func calculate(canvasSize: Size){
         canvasImageCenter = Point(x: (canvasSize.width / 2) - (imageWidth / 2), y: (canvasSize.height / 2) - (imageWidth / 2))
