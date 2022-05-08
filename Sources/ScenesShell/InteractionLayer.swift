@@ -18,6 +18,10 @@ class InteractionLayer : Layer, KeyDownHandler {
     let gameOverText = gameText()
     let gameOverInstructions = gameText()
     let score = Score()
+
+    var enemyY1 = 0
+    var enemyY2 = 0
+    var enemyY3 = 0
     
     init() {
         // Using a meaningful name can be helpful for debugging
@@ -47,6 +51,10 @@ class InteractionLayer : Layer, KeyDownHandler {
         gameOverInstructions.fontSize = "12pt Arial"
         gameOverInstructions.wordLocation = Point(x:canvasSize.width / 2, y:(canvasSize.height / 2) + 17)
         score.printedWords = "Score:"
+
+        enemyY1 = canvasSize.height / 7
+        enemyY2 = canvasSize.height / 3
+        enemyY3 = canvasSize.height / 2
     }
     override func postTeardown() {
         dispatcher.unregisterKeyDownHandler(handler: self)
@@ -74,6 +82,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             player.keyMove3 = false
             player.keyMove = 0
             player.gameover = false
+            player.hitJumpPeak = false
             enemy1.gameover = false
             enemy2.gameover = false
             enemy3.gameover = false
@@ -84,6 +93,51 @@ class InteractionLayer : Layer, KeyDownHandler {
         }
     }
     override func preCalculate(canvas:Canvas){
+        if enemy1.screenReset == true{
+            repeat{
+                let rn1 = Int.random(in:1...3)
+                let rn2 = Int.random(in:1...3)
+                if rn1 == 1{
+                    enemy1.enemyY = enemyY1
+                } else if rn1 == 2{
+                    enemy1.enemyY = enemyY2
+                } else if rn1 == 3{
+                    enemy1.enemyY = enemyY3
+                }
+                
+                if rn2 == 1{
+                    enemy2.enemyY = enemyY1
+                } else if rn2 == 2{
+                    enemy2.enemyY = enemyY2
+                } else if rn2 == 3{
+                    enemy2.enemyY = enemyY3
+                }
+            } while enemy1.enemyY == enemy2.enemyY
+            enemy1.screenReset = false
+        }
+
+        if enemy3.screenReset == true{
+            repeat{
+                let rn1 = Int.random(in:1...3)
+                let rn2 = Int.random(in:1...3)
+                if rn1 == 1{
+                    enemy3.enemyY = enemyY1
+                } else if rn1 == 2{
+                    enemy3.enemyY = enemyY2
+                } else if rn1 == 3{
+                    enemy3.enemyY = enemyY3
+                }
+                
+                if rn2 == 1{
+                    enemy4.enemyY = enemyY1
+                } else if rn2 == 2{
+                    enemy4.enemyY = enemyY2
+                } else if rn2 == 3{
+                    enemy4.enemyY = enemyY3
+                }
+            } while enemy3.enemyY == enemy4.enemyY
+            enemy3.screenReset = false
+        }
         if let canvasSize = canvas.canvasSize{
             if enemy3.isActive == false && enemy1.imageTopLeft.x < canvasSize.width / 2 && score.score > 10{
                 enemy3.isActive = true
@@ -107,6 +161,11 @@ class InteractionLayer : Layer, KeyDownHandler {
             enemy4.gameover = true
             enemy3.isActive = false
             enemy4.isActive = false
+            player.keyMove1 = false
+            player.keyMove2 = false
+            player.keyMove3 = false
+            player.keyMove = 0
+            player.hitJumpPeak = false
             gameOverText.gameover = true
             gameOverInstructions.gameover = true
             score.gameover = true
@@ -120,6 +179,11 @@ class InteractionLayer : Layer, KeyDownHandler {
             enemy2.gameover = true
             enemy3.gameover = true
             enemy4.gameover = true
+            player.keyMove1 = false
+            player.keyMove2 = false
+            player.keyMove3 = false
+            player.keyMove = 0
+            player.hitJumpPeak = false
             gameOverText.gameover = true
             gameOverInstructions.gameover = true
             score.gameover = true
@@ -133,6 +197,11 @@ class InteractionLayer : Layer, KeyDownHandler {
             enemy2.gameover = true
             enemy3.gameover = true
             enemy4.gameover = true
+            player.keyMove1 = false
+            player.keyMove2 = false
+            player.keyMove3 = false
+            player.keyMove = 0
+            player.hitJumpPeak = false
             gameOverText.gameover = true
             gameOverInstructions.gameover = true
             score.gameover = true
@@ -146,6 +215,11 @@ class InteractionLayer : Layer, KeyDownHandler {
             enemy2.gameover = true
             enemy3.gameover = true
             enemy4.gameover = true
+            player.keyMove1 = false
+            player.keyMove2 = false
+            player.keyMove3 = false
+            player.keyMove = 0
+            player.hitJumpPeak = false
             gameOverText.gameover = true
             gameOverInstructions.gameover = true
             score.gameover = true

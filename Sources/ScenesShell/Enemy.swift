@@ -10,6 +10,8 @@ class Enemy: RenderableEntity {
     var imageTopLeft = Point(x:0, y:0)
     var canvasImageCenter = Point(x:0, y:0)
     var initialImageX : Int = 0
+    var enemyY : Int = 0
+    var screenReset = false
     
     let imageWidth = 80
     let imageHeight = 60
@@ -22,6 +24,7 @@ class Enemy: RenderableEntity {
         super.init(name:"Enemy")
     }
     override func setup(canvasSize: Size, canvas: Canvas){
+        screenReset = true
         canvas.setup(image)
     }
     override func boundingRect() -> Rect {
@@ -34,9 +37,10 @@ class Enemy: RenderableEntity {
                     //centering image on the canvas
                     canvasImageCenter = Point(x: canvasSize.width - imageWidth, y: ((canvasSize.height / 2) - (imageWidth / 2)) + (canvasSize.height / 10))
                     if imageTopLeft.x == 0{
-                        imageTopLeft = canvasImageCenter
+                        imageTopLeft.x = canvasImageCenter.x
                         initialImageX = imageTopLeft.x
                     }
+                    imageTopLeft.y = enemyY
                     
                     if image.isReady{
                         image.renderMode = .destinationRect(Rect(topLeft:imageTopLeft, size:Size(width: imageWidth, height: imageHeight)))
@@ -55,10 +59,10 @@ class Enemy: RenderableEntity {
         if isActive == true{
             if imageTopLeft.x + imageWidth <= 0{
                 imageTopLeft.x = canvasImageCenter.x
+                screenReset = true
             } else{
                 imageTopLeft.x -= 20
             }
-            imageTopLeft.y = canvasImageCenter.y
         }
     }
 }
