@@ -44,12 +44,18 @@ class Player: RenderableEntity{
                     imageTopLeft = canvasImageCenter
                     initialImageY = imageTopLeft.y
                 }
+                
+                //rendinging image if its ready
+                if image.isReady{
+                    image.renderMode = .destinationRect(Rect(topLeft:imageTopLeft, size:Size(width: imageWidth, height: imageHeight)))
+                    canvas.render(image)
+                } else{
+                    let playerLoadingText = Text(location: Point(x: canvasSize.width / 2, y: 150), text: "Player Loading")
+                    playerLoadingText.font = "30pt Arial"
+                    playerLoadingText.alignment = .center
+                    canvas.render(playerLoadingText)       
+                }
             }
-            //rendinging image if its ready
-            if image.isReady{
-                image.renderMode = .destinationRect(Rect(topLeft:imageTopLeft, size:Size(width: imageWidth, height: imageHeight)))
-                canvas.render(image)
-            } else{ print("image was not ready")}
         }
     }
     override func calculate(canvasSize: Size){

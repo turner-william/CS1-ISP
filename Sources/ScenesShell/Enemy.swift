@@ -35,11 +35,17 @@ class Enemy: RenderableEntity {
                     imageTopLeft = canvasImageCenter
                     initialImageX = imageTopLeft.x
                 }
+                
+                if image.isReady{
+                    image.renderMode = .destinationRect(Rect(topLeft:imageTopLeft, size:Size(width: imageWidth, height: imageHeight)))
+                    canvas.render(image)
+                } else{
+                    let enemyLoadingText = Text(location:Point(x:canvasSize.width / 2, y: 100), text: "Enemy Loading")
+                    enemyLoadingText.font = "30pt Arial"
+                    enemyLoadingText.alignment = .center
+                    canvas.render(enemyLoadingText)
+                }
             }
-            if image.isReady{
-                image.renderMode = .destinationRect(Rect(topLeft:imageTopLeft, size:Size(width: imageWidth, height: imageHeight)))
-                canvas.render(image)
-            } else{ print("enemy image not ready")}
         }
     }
     override func calculate(canvasSize: Size){

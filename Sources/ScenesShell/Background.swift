@@ -40,7 +40,12 @@ class Background : RenderableEntity {
             if backgroundImage.isReady{
                 backgroundImage.renderMode = .destinationRect(Rect(topLeft: Point(x:0, y:0), size:Size(width:canvasSize.width, height:canvasSize.height)))
                 canvas.render(backgroundImage)
-            } else{print("Background image was not ready")}
+            } else{
+                let backgroundLoadingText = Text(location:Point(x: canvasSize.width / 2, y: 50), text:"Background Loading")
+                backgroundLoadingText.font = "30pt Arial"
+                backgroundLoadingText.alignment = .center
+                canvas.render(backgroundLoadingText)
+            }
         }
         //if !isBackgroundPlaying && backgroundSound.isReady {
             //canvas.render(backgroundSound)

@@ -12,6 +12,7 @@ class InteractionLayer : Layer, KeyDownHandler {
     let player = Player()
     let enemy = Enemy()
     let gameOverText = gameText()
+    let gameOverInstructions = gameText()
     let score = Score()
     
     init() {
@@ -22,11 +23,18 @@ class InteractionLayer : Layer, KeyDownHandler {
         insert(entity: player, at: .front)
         insert(entity: enemy, at: .front)
         insert(entity: gameOverText, at: .front)
+        insert(entity: gameOverInstructions, at: .front)
         insert(entity: score, at: .front)
     }
     override func preSetup(canvasSize: Size, canvas: Canvas){
         dispatcher.registerKeyDownHandler(handler: self)
         gameOverText.printedWords = "Game Over"
+        gameOverText.fontSize = "30pt Arial"
+        gameOverText.wordLocation = Point(x:canvasSize.width / 2, y:canvasSize.height / 2)
+          
+        gameOverInstructions.printedWords = "(Press 'Enter' to play again)"
+        gameOverInstructions.fontSize = "12pt Arial"
+        gameOverInstructions.wordLocation = Point(x:canvasSize.width / 2, y:(canvasSize.height / 2) + 17)
         score.printedWords = "Score:"
     }
     override func postTeardown() {
@@ -41,6 +49,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             player.gameover = false
             enemy.gameover = false
             gameOverText.gameover = false
+            gameOverInstructions.gameover = false
             score.gameover = false
         }
     }
@@ -58,6 +67,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             player.gameover = true
             enemy.gameover = true
             gameOverText.gameover = true
+            gameOverInstructions.gameover = true
             score.gameover = true
         }
     }
