@@ -25,7 +25,7 @@ class Player: RenderableEntity{
 
     init() {
         //getting the image url ready
-        guard let imageURL = URL(string:"https://github.com/turner-william/CS1-ISP/blob/master/Sources/Assets/98263144-.png?raw=true") else{
+        guard let imageURL = URL(string:"https://github.com/turner-william/CS1-ISP/blob/master/Sources/Assets/willPlayer.png?raw=true") else{
             fatalError("Failed to create URL for Player 1 image")
         }
         image = Image(sourceURL:imageURL)
