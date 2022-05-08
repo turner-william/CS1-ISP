@@ -13,13 +13,13 @@ class Player: RenderableEntity{
     var atPeakLength : Int = 0
 
     //using a 4:3 aspect ratio
-    let imageWidth = 300
-    let imageHeight = 225
+    let imageWidth = 120
+    let imageHeight = 90
 
 
     init() {
         //getting the image url ready
-        guard let imageURL = URL(string:"https://github.com/turner-william/CS1-ISP/blob/master/Sources/Assets/Nahom%20in%20baby%20cart1.png?raw=true") else{
+        guard let imageURL = URL(string:"https://github.com/turner-william/CS1-ISP/blob/master/Sources/Assets/98263144-.png?raw=true") else{
             fatalError("Failed to create URL for Player 1 image")
         }
         image = Image(sourceURL:imageURL)
@@ -66,11 +66,11 @@ class Player: RenderableEntity{
             imageTopLeft.y = initialImageY - 200
         }
         if hitJumpPeak == true{
-            if atPeakLength > 20{
-                if sqrt(Double(imageTopLeft.y - (initialImageY - 200))) * 2 >= 2{
+            if atPeakLength > 1{
+                if sqrt(Double(imageTopLeft.y - (initialImageY - 200))) * 2 >= 3{
                     imageTopLeft.y += Int(sqrt(Double(imageTopLeft.y - (initialImageY - 200))) * 2)
                 } else {
-                    imageTopLeft.y += 2
+                    imageTopLeft.y += 3
                 }
             } else{
                 atPeakLength += 1

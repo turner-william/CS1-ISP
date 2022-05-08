@@ -11,8 +11,9 @@ import Foundation
 class InteractionLayer : Layer, KeyDownHandler {
     let player = Player()
     let enemy = Enemy()
-    let text = gameText()
-
+    let gameOverText = gameText()
+    let score = Score()
+    
     init() {
         // Using a meaningful name can be helpful for debugging
         super.init(name:"Interaction")
@@ -20,10 +21,13 @@ class InteractionLayer : Layer, KeyDownHandler {
         // We insert our RenderableEntities in the constructor
         insert(entity: player, at: .front)
         insert(entity: enemy, at: .front)
-        insert(entity: text, at: .front)
+        insert(entity: gameOverText, at: .front)
+        insert(entity: score, at: .front)
     }
     override func preSetup(canvasSize: Size, canvas: Canvas){
         dispatcher.registerKeyDownHandler(handler: self)
+        gameOverText.printedWords = "Game Over"
+        score.printedWords = "Score:"
     }
     override func postTeardown() {
         dispatcher.unregisterKeyDownHandler(handler: self)
@@ -36,10 +40,14 @@ class InteractionLayer : Layer, KeyDownHandler {
             enemy.imageTopLeft = enemy.canvasImageCenter
             player.gameover = false
             enemy.gameover = false
-            text.gameover = false
+            gameOverText.gameover = false
+            score.gameover = false
         }
     }
     override func preCalculate(canvas:Canvas){
+        if score.gameover == false{
+            score.score += 1
+        }
         let playerBoundingRect = player.boundingRect()
         let enemyBoundingRect = enemy.boundingRect()
 
@@ -49,7 +57,8 @@ class InteractionLayer : Layer, KeyDownHandler {
         if playerTargetContainmentSet.isSubset(of: playerContainment) || playerTargetContainmentSet2.isSubset(of: playerContainment){
             player.gameover = true
             enemy.gameover = true
-            text.gameover = true
+            gameOverText.gameover = true
+            score.gameover = true
         }
     }
 }
