@@ -41,11 +41,22 @@ class InteractionLayer : Layer, KeyDownHandler {
         dispatcher.unregisterKeyDownHandler(handler: self)
     }
     func onKeyDown(key:String, code:String, ctrlKey:Bool, shiftKey:Bool,  altKey:Bool, metaKey:Bool){
-        if code == "Space"{
-            player.imageTopLeft.y -= 5
+        if code == "KeyZ"{
+            player.keyMove = 1
+        } else if code == "KeyX"{
+            player.keyMove = 2
         }
+        if code == "KeyC"{
+            player.keyMove = 3
+        }
+        print(code)
         if code == "Enter"{
             enemy.imageTopLeft = enemy.canvasImageCenter
+            player.imageTopLeft.y = player.initialImageY
+            score.score = 0
+            player.keyMove1 = false
+            player.keyMove2 = false
+            player.keyMove = 0
             player.gameover = false
             enemy.gameover = false
             gameOverText.gameover = false

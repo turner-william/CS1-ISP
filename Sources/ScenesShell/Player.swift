@@ -10,8 +10,13 @@ class Player: RenderableEntity{
     var canvasImageCenter = Point(x: 0, y: 0)
     var initialImageY : Int = 0
     var hitJumpPeak = false
-    var atPeakLength : Int = 0
 
+    //jumping variables
+    var atPeakLength : Int = 0
+    var keyMove : Int = 0
+    var keyMove1 : Bool = false
+    var keyMove2 : Bool = false
+    
     //using a 4:3 aspect ratio
     let imageWidth = 120
     let imageHeight = 90
@@ -60,32 +65,78 @@ class Player: RenderableEntity{
     }
     override func calculate(canvasSize: Size){
         canvasImageCenter = Point(x: (canvasSize.width / 2) - (imageWidth / 2), y: (canvasSize.height / 2) - (imageWidth / 2))
-        if initialImageY > imageTopLeft.y && initialImageY - 200 <= imageTopLeft.y && hitJumpPeak == false{
-            if Int(sqrt(Double(imageTopLeft.y - (initialImageY - 200))) * 2) >= 3{
-                imageTopLeft.y -= Int(sqrt(Double(imageTopLeft.y - (initialImageY - 200))) * 2)
-                hitJumpPeak = false
-            } else{
-                imageTopLeft.y -= 3
-            }
-        } else if initialImageY > imageTopLeft.y && initialImageY - 200 > imageTopLeft.y{
-            hitJumpPeak = true
-            imageTopLeft.y = initialImageY - 200
-        }
-        if hitJumpPeak == true{
-            if atPeakLength > 1{
-                if sqrt(Double(imageTopLeft.y - (initialImageY - 200))) * 2 >= 3{
-                    imageTopLeft.y += Int(sqrt(Double(imageTopLeft.y - (initialImageY - 200))) * 2)
-                } else {
-                    imageTopLeft.y += 3
+        if (keyMove == 1 && keyMove2 == false) || keyMove1 == true{
+            keyMove1 = true
+            imageTopLeft.y -= 1
+            if initialImageY > imageTopLeft.y && initialImageY - 200 <= imageTopLeft.y && hitJumpPeak == false{
+                if Int(sqrt(Double(imageTopLeft.y - (initialImageY - 200))) * 2) >= 3{
+                    imageTopLeft.y -= Int(sqrt(Double(imageTopLeft.y - (initialImageY - 200))) * 2)
+                    hitJumpPeak = false
+                } else{
+                    imageTopLeft.y -= 3
                 }
-            } else{
-                atPeakLength += 1
+            } else if initialImageY > imageTopLeft.y && initialImageY - 200 > imageTopLeft.y{
+                hitJumpPeak = true
+                imageTopLeft.y = initialImageY - 200
+            }
+            if hitJumpPeak == true{
+                if atPeakLength > 1{
+                    if sqrt(Double(imageTopLeft.y - (initialImageY - 200))) * 2 >= 3{
+                        imageTopLeft.y += Int(sqrt(Double(imageTopLeft.y - (initialImageY - 200))) * 2)
+                    } else {
+                        imageTopLeft.y += 3
+                    }
+                } else{
+                    atPeakLength += 1
+                }
+            }
+            if initialImageY < imageTopLeft.y{
+                imageTopLeft.y = initialImageY
+                hitJumpPeak = false
+                atPeakLength = 0
+                keyMove1 = false
+                keyMove = 0
+            }
+        } else if (keyMove == 2 && keyMove1 == false) || keyMove2 == true{
+            keyMove2 = true
+            imageTopLeft.y -= 1
+            if initialImageY > imageTopLeft.y && initialImageY - 400 <= imageTopLeft.y && hitJumpPeak == false{
+                if Int(sqrt(Double(imageTopLeft.y - (initialImageY - 400))) * 2) >= 3{
+                    imageTopLeft.y -= Int(sqrt(Double(imageTopLeft.y - (initialImageY - 400))) * 2)
+                    hitJumpPeak = false
+                } else{
+                    imageTopLeft.y -= 3
+                }
+            } else if initialImageY > imageTopLeft.y && initialImageY - 400 > imageTopLeft.y{
+                hitJumpPeak = true
+                imageTopLeft.y = initialImageY - 400
+            }
+            if hitJumpPeak == true{
+                if atPeakLength > 1{
+                    if sqrt(Double(imageTopLeft.y - (initialImageY - 400))) * 2 >= 3{
+                        imageTopLeft.y += Int(sqrt(Double(imageTopLeft.y - (initialImageY - 400))) * 2)
+                    } else {
+                        imageTopLeft.y += 3
+                    }
+                } else{
+                    atPeakLength += 1
+                }
+            }
+            if initialImageY < imageTopLeft.y{
+                imageTopLeft.y = initialImageY
+                hitJumpPeak = false
+                atPeakLength = 0
+                keyMove2 = false
+                keyMove = 0
             }
         }
-        if initialImageY < imageTopLeft.y{
+        if keyMove == 3 && imageTopLeft.y + 35 < initialImageY{
+            keyMove2 = false
+            keyMove1 = false
+            imageTopLeft.y += 35
+        } else if keyMove == 3 && imageTopLeft.y + 35 >= initialImageY{
             imageTopLeft.y = initialImageY
             hitJumpPeak = false
-            atPeakLength = 0
         }
     }
 }
