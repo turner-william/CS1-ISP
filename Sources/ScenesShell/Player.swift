@@ -4,6 +4,7 @@ import Scenes
 
 class Player: RenderableEntity{
     var gameover: Bool = false
+    var gameStarted = false
     //creating useful variables to manipulate the image/player
     let image : Image
     var imageTopLeft = Point(x:0, y:0)
@@ -52,14 +53,16 @@ class Player: RenderableEntity{
                 }
                 
                 //rendinging image if its ready
-                if image.isReady{
-                    image.renderMode = .destinationRect(Rect(topLeft:imageTopLeft, size:Size(width: imageWidth, height: imageHeight)))
-                    canvas.render(image)
-                } else{
-                    let playerLoadingText = Text(location: Point(x: canvasSize.width / 2, y: 150), text: "Player Loading")
-                    playerLoadingText.font = "30pt Arial"
-                    playerLoadingText.alignment = .center
-                    canvas.render(playerLoadingText)       
+                if gameStarted == true{
+                    if image.isReady{
+                        image.renderMode = .destinationRect(Rect(topLeft:imageTopLeft, size:Size(width: imageWidth, height: imageHeight)))
+                        canvas.render(image)
+                    } else{
+                        let playerLoadingText = Text(location: Point(x: canvasSize.width / 2, y: 150), text: "Player Loading")
+                        playerLoadingText.font = "30pt Arial"
+                        playerLoadingText.alignment = .center
+                        canvas.render(playerLoadingText)       
+                    }
                 }
             }
         }

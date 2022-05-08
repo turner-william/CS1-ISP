@@ -18,7 +18,8 @@ class InteractionLayer : Layer, KeyDownHandler {
     let gameOverText = gameText()
     let gameOverInstructions = gameText()
     let score = Score()
-
+    let startScreen = StartScreen()
+    
     var enemyY1 = 0
     var enemyY2 = 0
     var enemyY3 = 0
@@ -37,6 +38,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         insert(entity: gameOverText, at: .front)
         insert(entity: gameOverInstructions, at: .front)
         insert(entity: score, at: .front)
+        insert(entity: startScreen, at: .front)
     }
     override func preSetup(canvasSize: Size, canvas: Canvas){
         dispatcher.registerKeyDownHandler(handler: self)
@@ -91,6 +93,14 @@ class InteractionLayer : Layer, KeyDownHandler {
             gameOverInstructions.gameover = false
             score.gameover = false
         }
+        if code == "Space"{
+            startScreen.gameStarted = true
+            player.gameStarted = true
+            enemy1.gameStarted = true
+            enemy2.gameStarted = true
+            enemy3.gameStarted = true
+            enemy4.gameStarted = true
+        }
     }
     override func preCalculate(canvas:Canvas){
         if enemy1.screenReset == true{
@@ -144,8 +154,10 @@ class InteractionLayer : Layer, KeyDownHandler {
                 enemy4.isActive = true
             }
         }
-        if score.gameover == false{
-            score.score += 1
+        if enemy1.gameStarted == true{
+            if score.gameover == false{
+                score.score += 1
+            }
         }
         let playerBoundingRect = player.boundingRect()
         var enemyBoundingRect = enemy1.boundingRect()
