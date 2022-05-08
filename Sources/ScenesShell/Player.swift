@@ -16,6 +16,7 @@ class Player: RenderableEntity{
     var keyMove : Int = 0
     var keyMove1 : Bool = false
     var keyMove2 : Bool = false
+    var keyMove3 : Bool = false
     
     //using a 4:3 aspect ratio
     let imageWidth = 120
@@ -65,7 +66,7 @@ class Player: RenderableEntity{
     }
     override func calculate(canvasSize: Size){
         canvasImageCenter = Point(x: (canvasSize.width / 2) - (imageWidth / 2), y: (canvasSize.height / 2) - (imageWidth / 2))
-        if (keyMove == 1 && keyMove2 == false) || keyMove1 == true{
+        if ((keyMove == 1 && keyMove2 == false) || keyMove1 == true) && keyMove3 == false{
             keyMove1 = true
             imageTopLeft.y -= 1
             if initialImageY > imageTopLeft.y && initialImageY - 200 <= imageTopLeft.y && hitJumpPeak == false{
@@ -97,7 +98,7 @@ class Player: RenderableEntity{
                 keyMove1 = false
                 keyMove = 0
             }
-        } else if (keyMove == 2 && keyMove1 == false) || keyMove2 == true{
+        } else if ((keyMove == 2 && keyMove1 == false) || keyMove2 == true) && keyMove3 == false{
             keyMove2 = true
             imageTopLeft.y -= 1
             if initialImageY > imageTopLeft.y && initialImageY - 400 <= imageTopLeft.y && hitJumpPeak == false{
@@ -130,13 +131,16 @@ class Player: RenderableEntity{
                 keyMove = 0
             }
         }
-        if keyMove == 3 && imageTopLeft.y + 35 < initialImageY{
+        if (keyMove == 3 && imageTopLeft.y + 35 < initialImageY) || keyMove3 == true{
+            keyMove3 = true
             keyMove2 = false
             keyMove1 = false
             imageTopLeft.y += 35
-        } else if keyMove == 3 && imageTopLeft.y + 35 >= initialImageY{
+        }
+        if keyMove3 == true && imageTopLeft.y + 35 >= initialImageY{
             imageTopLeft.y = initialImageY
             hitJumpPeak = false
+            keyMove3 = false
         }
     }
 }
