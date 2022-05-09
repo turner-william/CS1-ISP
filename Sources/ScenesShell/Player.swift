@@ -55,8 +55,6 @@ class Player: RenderableEntity{
         canvas.setup(image3)
         jumpHeight1 = (canvasSize.height / 100) * 19
         jumpHeight2 = (canvasSize.height / 100) * 37
-        print(jumpHeight1)
-        print(jumpHeight2)
     }
 
     //creating bounding rect
