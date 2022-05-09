@@ -8,15 +8,16 @@ import Foundation
 
 
 class Background : RenderableEntity {
-    //let backgroundSound: Audio
-    //let isBackgroundPlaying = false
+    let backgroundSound: Audio
+    var isBackgroundPlaying = false
     let backgroundImage : Image
+    
     init() {
         //creating sound url
-        //guard let sound = URL(string:"") else{
-            //fatalError("Sound could not be loaded")
-        //}
-        //backgroundSound = Audio(sourceURL:sound, shouldLoop:true)
+        guard let sound = URL(string:"https://codermerlin.com/users/william-turner/CoconutMall.mp3") else{
+            fatalError("Sound could not be loaded")
+        }
+        backgroundSound = Audio(sourceURL:sound, shouldLoop:true)
         
         //creating background url
         guard let image = URL(string:"https://github.com/turner-william/CS1-ISP/blob/master/Sources/Assets/Background.png?raw=true") else{
@@ -27,16 +28,12 @@ class Background : RenderableEntity {
         super.init(name:"Background")
     }
     override func setup(canvasSize: Size, canvas: Canvas){
-        //canvas.setup(backgroundSound)
+        canvas.setup(backgroundSound)
         canvas.setup(backgroundImage)
     }
     override func render(canvas: Canvas){
 
         if let canvasSize = canvas.canvasSize{
-            //let backgroundRect = Rect(topLeft: Point(x:0, y:0), size: Size(width:canvasSize.width, height:canvasSize.height))
-            //let backgroundRectangle = Rectangle(rect:backgroundRect, fillMode: .fillAndStroke)
-            //let backgroundColor = Color(.green)
-            //canvas.render(FillStyle(color: backgroundColor), StrokeStyle(color: backgroundColor), backgroundRectangle)
             if backgroundImage.isReady{
                 backgroundImage.renderMode = .destinationRect(Rect(topLeft: Point(x:0, y:0), size:Size(width:canvasSize.width, height:canvasSize.height)))
                 canvas.render(backgroundImage)
@@ -47,10 +44,10 @@ class Background : RenderableEntity {
                 canvas.render(backgroundLoadingText)
             }
         }
-        //if !isBackgroundPlaying && backgroundSound.isReady {
-            //canvas.render(backgroundSound)
-            //isBackgroundPlaying = true
-        //}
+        if !isBackgroundPlaying && backgroundSound.isReady {
+            canvas.render(backgroundSound)
+            isBackgroundPlaying = true
+        }
 
     }
     
