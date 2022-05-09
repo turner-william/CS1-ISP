@@ -3,6 +3,8 @@ import Foundation
 import Scenes
 
 class Player: RenderableEntity{
+    var jumpHeight1 = 0
+    var jumpHeight2 = 0
     var gameover: Bool = false
     var gameStarted = false
     var characterNumber = 1
@@ -51,6 +53,10 @@ class Player: RenderableEntity{
         canvas.setup(image1)
         canvas.setup(image2)
         canvas.setup(image3)
+        jumpHeight1 = (canvasSize.height / 100) * 19
+        jumpHeight2 = (canvasSize.height / 100) * 37
+        print(jumpHeight1)
+        print(jumpHeight2)
     }
 
     //creating bounding rect
@@ -93,21 +99,21 @@ class Player: RenderableEntity{
         if ((keyMove == 1 && keyMove2 == false) || keyMove1 == true) && keyMove3 == false{
             keyMove1 = true
             imageTopLeft.y -= 1
-            if initialImageY > imageTopLeft.y && initialImageY - 200 <= imageTopLeft.y && hitJumpPeak == false{
-                if Int(sqrt(Double(imageTopLeft.y - (initialImageY - 200))) * 2) >= 3{
-                    imageTopLeft.y -= Int(sqrt(Double(imageTopLeft.y - (initialImageY - 200))) * 2)
+            if initialImageY > imageTopLeft.y && initialImageY - jumpHeight1 <= imageTopLeft.y && hitJumpPeak == false{
+                if Int(sqrt(Double(imageTopLeft.y - (initialImageY - jumpHeight1))) * 2) >= 3{
+                    imageTopLeft.y -= Int(sqrt(Double(imageTopLeft.y - (initialImageY - jumpHeight1))) * 2)
                     hitJumpPeak = false
                 } else{
                     imageTopLeft.y -= 3
                 }
-            } else if initialImageY > imageTopLeft.y && initialImageY - 200 > imageTopLeft.y{
+            } else if initialImageY > imageTopLeft.y && initialImageY - jumpHeight1 > imageTopLeft.y{
                 hitJumpPeak = true
-                imageTopLeft.y = initialImageY - 200
+                imageTopLeft.y = initialImageY - jumpHeight1
             }
             if hitJumpPeak == true{
                 if atPeakLength > 1{
-                    if sqrt(Double(imageTopLeft.y - (initialImageY - 200))) * 2 >= 3{
-                        imageTopLeft.y += Int(sqrt(Double(imageTopLeft.y - (initialImageY - 200))) * 2)
+                    if sqrt(Double(imageTopLeft.y - (initialImageY - jumpHeight1))) * 2 >= 3{
+                        imageTopLeft.y += Int(sqrt(Double(imageTopLeft.y - (initialImageY - jumpHeight1))) * 2)
                     } else {
                         imageTopLeft.y += 3
                     }
@@ -125,21 +131,21 @@ class Player: RenderableEntity{
         } else if ((keyMove == 2 && keyMove1 == false) || keyMove2 == true) && keyMove3 == false{
             keyMove2 = true
             imageTopLeft.y -= 1
-            if initialImageY > imageTopLeft.y && initialImageY - 400 <= imageTopLeft.y && hitJumpPeak == false{
-                if Int(sqrt(Double(imageTopLeft.y - (initialImageY - 400))) * 2) >= 3{
-                    imageTopLeft.y -= Int(sqrt(Double(imageTopLeft.y - (initialImageY - 400))) * 2)
+            if initialImageY > imageTopLeft.y && initialImageY - jumpHeight2 <= imageTopLeft.y && hitJumpPeak == false{
+                if Int(sqrt(Double(imageTopLeft.y - (initialImageY - jumpHeight2))) * 2) >= 3{
+                    imageTopLeft.y -= Int(sqrt(Double(imageTopLeft.y - (initialImageY - jumpHeight2))) * 2)
                     hitJumpPeak = false
                 } else{
                     imageTopLeft.y -= 3
                 }
-            } else if initialImageY > imageTopLeft.y && initialImageY - 400 > imageTopLeft.y{
+            } else if initialImageY > imageTopLeft.y && initialImageY - jumpHeight2 > imageTopLeft.y{
                 hitJumpPeak = true
-                imageTopLeft.y = initialImageY - 400
+                imageTopLeft.y = initialImageY - jumpHeight2
             }
             if hitJumpPeak == true{
                 if atPeakLength > 1{
-                    if sqrt(Double(imageTopLeft.y - (initialImageY - 400))) * 2 >= 3{
-                        imageTopLeft.y += Int(sqrt(Double(imageTopLeft.y - (initialImageY - 400))) * 2)
+                    if sqrt(Double(imageTopLeft.y - (initialImageY - jumpHeight2))) * 2 >= 3{
+                        imageTopLeft.y += Int(sqrt(Double(imageTopLeft.y - (initialImageY - jumpHeight2))) * 2)
                     } else {
                         imageTopLeft.y += 3
                     }
