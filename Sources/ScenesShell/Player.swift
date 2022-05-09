@@ -36,12 +36,12 @@ class Player: RenderableEntity{
         }
         image1 = Image(sourceURL:image1URL)
         
-        guard let image2URL = URL(string:"https://github.com/turner-william/CS1-ISP/blob/master/Sources/Assets/nahomTempPlayer.png?raw=true") else{
+        guard let image2URL = URL(string:"https://github.com/turner-william/CS1-ISP/blob/master/Sources/Assets/nahomPlayer.png?raw=true") else{
             fatalError("Failed to create URL for Player 2 image")
         }
         image2 = Image(sourceURL:image2URL)
         
-        guard let image3URL = URL(string:"https://github.com/turner-william/CS1-ISP/blob/master/Sources/Assets/bread.jpg?raw=true") else{
+        guard let image3URL = URL(string:"https://github.com/turner-william/CS1-ISP/blob/master/Sources/Assets/billyPlayer.png?raw=true") else{
             fatalError("Failed to create URL for Player 3 image")
         }
         image3 = Image(sourceURL:image3URL)
