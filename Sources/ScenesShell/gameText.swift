@@ -7,6 +7,8 @@ class gameText: RenderableEntity{
     var printedWords : String = ""
     var fontSize = ""
     var wordLocation = Point(x:0, y:0)
+    var highscore = false
+    
     init(){
         super.init(name:"gameText")
     }
@@ -14,7 +16,10 @@ class gameText: RenderableEntity{
             let gameoverText = Text(location:wordLocation, text: printedWords)
             gameoverText.font = fontSize
             gameoverText.alignment = .center
-            if gameover == true{
+            if highscore == true{
+                gameoverText.alignment = .left
+            }
+            if gameover == true || highscore == true{
                 canvas.render(gameoverText)
             }
     }

@@ -23,6 +23,8 @@ class InteractionLayer : Layer, KeyDownHandler {
     var enemyY1 = 0
     var enemyY2 = 0
     var enemyY3 = 0
+    let highScore = gameText()
+    var highscore = 0
     
     init() {
         // Using a meaningful name can be helpful for debugging
@@ -38,6 +40,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         insert(entity: gameOverText, at: .front)
         insert(entity: gameOverInstructions, at: .front)
         insert(entity: score, at: .front)
+        insert(entity: highScore, at: .front)
         insert(entity: startScreen, at: .front)
     }
     override func preSetup(canvasSize: Size, canvas: Canvas){
@@ -53,6 +56,10 @@ class InteractionLayer : Layer, KeyDownHandler {
         gameOverInstructions.fontSize = "12pt Arial"
         gameOverInstructions.wordLocation = Point(x:canvasSize.width / 2, y:(canvasSize.height / 2) + 17)
         score.printedWords = "Score:"
+        highScore.printedWords = "Highscore: \(highscore)"
+        highScore.fontSize = "15pt Arial"
+        highScore.highscore = true
+        highScore.wordLocation = Point(x:50, y: 85)
 
         enemyY1 = canvasSize.height / 7
         enemyY2 = canvasSize.height / 3
@@ -92,6 +99,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             gameOverText.gameover = false
             gameOverInstructions.gameover = false
             score.gameover = false
+            highScore.gameover = false
         }
         if code == "Space"{
             startScreen.gameStarted = true
@@ -101,8 +109,41 @@ class InteractionLayer : Layer, KeyDownHandler {
             enemy3.gameStarted = true
             enemy4.gameStarted = true
         }
+        if code == "KeyT"{
+            if player.characterNumber < 3{
+                player.characterNumber += 1
+            } else {
+                player.characterNumber = 1
+            }
+        }
     }
     override func preCalculate(canvas:Canvas){
+        if score.score == 500{
+            enemy1.speed += 10
+            enemy2.speed += 10
+            enemy3.speed += 10
+            enemy4.speed += 10
+        } else if score.score == 1000{
+            enemy1.speed += 10
+            enemy2.speed += 10
+            enemy3.speed += 10
+            enemy4.speed += 10
+        } else if score.score == 1500{
+            enemy1.speed += 10
+            enemy2.speed += 10
+            enemy3.speed += 10
+            enemy4.speed += 10
+        } else if score.score == 2000{
+            enemy1.speed += 10
+            enemy2.speed += 10
+            enemy3.speed += 10
+            enemy4.speed += 10
+        } else if score.score == 2000{
+            enemy1.speed += 10
+            enemy2.speed += 10
+            enemy3.speed += 10
+            enemy4.speed += 10
+        }
         if enemy1.screenReset == true{
             repeat{
                 let rn1 = Int.random(in:1...3)
@@ -159,6 +200,10 @@ class InteractionLayer : Layer, KeyDownHandler {
                 score.score += 1
             }
         }
+        if score.score >= highscore{
+            highscore = score.score
+        }
+        highScore.printedWords = "Highscore: \(highscore)"
         let playerBoundingRect = player.boundingRect()
         var enemyBoundingRect = enemy1.boundingRect()
 
@@ -181,6 +226,11 @@ class InteractionLayer : Layer, KeyDownHandler {
             gameOverText.gameover = true
             gameOverInstructions.gameover = true
             score.gameover = true
+            highScore.gameover = true
+            enemy1.speed = 20
+            enemy2.speed = 20
+            enemy3.speed = 20
+            enemy4.speed = 20
         }
 
         enemyBoundingRect = enemy2.boundingRect()
@@ -199,6 +249,11 @@ class InteractionLayer : Layer, KeyDownHandler {
             gameOverText.gameover = true
             gameOverInstructions.gameover = true
             score.gameover = true
+            highScore.gameover = true
+            enemy1.speed = 20
+            enemy2.speed = 20
+            enemy3.speed = 20
+            enemy4.speed = 20
         }
 
         enemyBoundingRect = enemy3.boundingRect()
@@ -217,6 +272,11 @@ class InteractionLayer : Layer, KeyDownHandler {
             gameOverText.gameover = true
             gameOverInstructions.gameover = true
             score.gameover = true
+            highScore.gameover = true
+            enemy1.speed = 20
+            enemy2.speed = 20
+            enemy3.speed = 20
+            enemy4.speed = 20
         }
 
         enemyBoundingRect = enemy4.boundingRect()
@@ -235,6 +295,11 @@ class InteractionLayer : Layer, KeyDownHandler {
             gameOverText.gameover = true
             gameOverInstructions.gameover = true
             score.gameover = true
+            highScore.gameover = true
+            enemy1.speed = 20
+            enemy2.speed = 20
+            enemy3.speed = 20
+            enemy4.speed = 20
         }
     }
 }

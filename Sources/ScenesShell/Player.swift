@@ -5,8 +5,11 @@ import Scenes
 class Player: RenderableEntity{
     var gameover: Bool = false
     var gameStarted = false
+    var characterNumber = 1
     //creating useful variables to manipulate the image/player
-    let image : Image
+    let image1 : Image
+    let image2 : Image
+    let image3 : Image
     var imageTopLeft = Point(x:0, y:0)
     var canvasImageCenter = Point(x: 0, y: 0)
     var initialImageY : Int = 0
@@ -26,16 +29,28 @@ class Player: RenderableEntity{
 
     init() {
         //getting the image url ready
-        guard let imageURL = URL(string:"https://github.com/turner-william/CS1-ISP/blob/master/Sources/Assets/willPlayer.png?raw=true") else{
+        guard let image1URL = URL(string:"https://github.com/turner-william/CS1-ISP/blob/master/Sources/Assets/willPlayer.png?raw=true") else{
             fatalError("Failed to create URL for Player 1 image")
         }
-        image = Image(sourceURL:imageURL)
+        image1 = Image(sourceURL:image1URL)
+        
+        guard let image2URL = URL(string:"https://github.com/turner-william/CS1-ISP/blob/master/Sources/Assets/nahomTempPlayer.png?raw=true") else{
+            fatalError("Failed to create URL for Player 2 image")
+        }
+        image2 = Image(sourceURL:image2URL)
+        
+        guard let image3URL = URL(string:"https://github.com/turner-william/CS1-ISP/blob/master/Sources/Assets/bread.jpg?raw=true") else{
+            fatalError("Failed to create URL for Player 3 image")
+        }
+        image3 = Image(sourceURL:image3URL)
         super.init(name:"Player")
     }
 
     //setting up image to be ready
     override func setup(canvasSize: Size, canvas: Canvas) {
-        canvas.setup(image)
+        canvas.setup(image1)
+        canvas.setup(image2)
+        canvas.setup(image3)
     }
 
     //creating bounding rect
@@ -54,9 +69,15 @@ class Player: RenderableEntity{
                 
                 //rendinging image if its ready
                 if gameStarted == true{
-                    if image.isReady{
-                        image.renderMode = .destinationRect(Rect(topLeft:imageTopLeft, size:Size(width: imageWidth, height: imageHeight)))
-                        canvas.render(image)
+                    if image1.isReady && characterNumber == 1{
+                        image1.renderMode = .destinationRect(Rect(topLeft:imageTopLeft, size:Size(width: imageWidth, height: imageHeight)))
+                        canvas.render(image1)
+                    } else if image2.isReady && characterNumber == 2{
+                        image2.renderMode = .destinationRect(Rect(topLeft:imageTopLeft, size:Size(width: imageWidth, height: imageHeight)))
+                        canvas.render(image2)
+                    } else if image3.isReady && characterNumber == 3{
+                        image3.renderMode = .destinationRect(Rect(topLeft:imageTopLeft, size:Size(width: imageWidth, height: imageHeight)))
+                        canvas.render(image3)
                     } else{
                         let playerLoadingText = Text(location: Point(x: canvasSize.width / 2, y: 150), text: "Player Loading")
                         playerLoadingText.font = "30pt Arial"

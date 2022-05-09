@@ -17,7 +17,7 @@ class Score: RenderableEntity{
         score = 0
     }
     override func render(canvas: Canvas){
-        let gameoverText = Text(location:Point(x:50, y:80), text: "\(printedWords) \(score)")
+        let gameoverText = Text(location:Point(x:50, y:50), text: "\(printedWords) \(score)")
         gameoverText.font = "30pt Arial"
         gameoverText.alignment = .left
         canvas.render(gameoverText)

@@ -13,6 +13,7 @@ class Enemy: RenderableEntity {
     var initialImageX : Int = 0
     var enemyY : Int = 0
     var screenReset = false
+    var speed = 20
     
     let imageWidth = 80
     let imageHeight = 60
@@ -65,7 +66,7 @@ class Enemy: RenderableEntity {
                     imageTopLeft.x = canvasImageCenter.x
                     screenReset = true
                 } else{
-                    imageTopLeft.x -= 20
+                    imageTopLeft.x -= speed
                 }
             }
         }
