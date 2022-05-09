@@ -8,7 +8,7 @@ class Player: RenderableEntity{
     var gameover: Bool = false
     var gameStarted = false
     var characterNumber = 1
-    //creating useful variables to manipulate the image/player
+    //creating useful variables to manipulate the image/players
     let image1 : Image
     let image2 : Image
     let image3 : Image
