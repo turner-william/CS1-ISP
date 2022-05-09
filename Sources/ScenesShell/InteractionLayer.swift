@@ -119,30 +119,30 @@ class InteractionLayer : Layer, KeyDownHandler {
     }
     override func preCalculate(canvas:Canvas){
         if score.score == 500{
-            enemy1.speed += 10
-            enemy2.speed += 10
-            enemy3.speed += 10
-            enemy4.speed += 10
+            enemy1.speed += 5
+            enemy2.speed += 5
+            enemy3.speed += 5
+            enemy4.speed += 5
         } else if score.score == 1000{
-            enemy1.speed += 10
-            enemy2.speed += 10
-            enemy3.speed += 10
-            enemy4.speed += 10
+            enemy1.speed += 5
+            enemy2.speed += 5
+            enemy3.speed += 5
+            enemy4.speed += 5
         } else if score.score == 1500{
-            enemy1.speed += 10
-            enemy2.speed += 10
-            enemy3.speed += 10
-            enemy4.speed += 10
+            enemy1.speed += 5
+            enemy2.speed += 5
+            enemy3.speed += 5
+            enemy4.speed += 5
         } else if score.score == 2000{
-            enemy1.speed += 10
-            enemy2.speed += 10
-            enemy3.speed += 10
-            enemy4.speed += 10
+            enemy1.speed += 5
+            enemy2.speed += 5
+            enemy3.speed += 5
+            enemy4.speed += 5
         } else if score.score == 2000{
-            enemy1.speed += 10
-            enemy2.speed += 10
-            enemy3.speed += 10
-            enemy4.speed += 10
+            enemy1.speed += 5
+            enemy2.speed += 5
+            enemy3.speed += 5
+            enemy4.speed += 5
         }
         if enemy1.screenReset == true{
             repeat{
